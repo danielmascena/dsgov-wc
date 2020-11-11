@@ -16,5 +16,8 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "author": "Daniel Mascena"
+  "author": "Daniel Mascena",
+  "dependencies": {
+    "@stencil/sass": "^1.4.0"
+  }
 }

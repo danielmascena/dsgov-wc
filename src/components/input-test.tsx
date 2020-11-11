@@ -8,5 +8,4 @@ export class InputTest {
 	render() {
 		return <br-input placeholder="my test" label="CPF"></br-input>;
 	}
-
 }
