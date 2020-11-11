@@ -1,0 +1,14 @@
+:host {
+
+  & input {
+    font-size: 16.8px;
+    color: #555555;
+    &::placeholder {
+      font-size: 14px;
+      font-style: italic;
+      padding-left: 16px;
+      padding-right: 40px;
+    }
+  }
+  
+}
