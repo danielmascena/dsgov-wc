@@ -12,12 +12,15 @@ export class BrInput {
 	@Prop() placeholder?: string;
 	@Prop() disabled?: boolean;
 	@Prop() label?: string;
+	@Prop() icon?: string;
 
 	render() {
 		return (
 			<Host>
 				<label>{this.label}</label>
 				<input placeholder={this.placeholder} disabled={this.disabled} id={this.idInput} />
+				{this.icon && <img src="assets/icons/icon.png" width="20"/>}
+			
 			</Host>
 		);
 	}

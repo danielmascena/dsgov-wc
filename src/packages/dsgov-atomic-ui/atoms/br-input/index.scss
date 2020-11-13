@@ -1,7 +1,10 @@
 :host {
+  display: inline-grid;
+  position: relative;
 
   & input {
     font-size: 16.8px;
+    padding-right: 25px;
     color: #555555;
     &::placeholder {
       font-size: 14px;
@@ -9,6 +12,11 @@
       padding-left: 16px;
       padding-right: 40px;
     }
+  }
+  img {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
   }
   
 }

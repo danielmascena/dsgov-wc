@@ -30,6 +30,7 @@ export namespace Components {
     }
     interface BrInput {
         "disabled"?: boolean;
+        "icon"?: string;
         "idInput"?: string;
         "label"?: string;
         "name"?: string;
@@ -117,6 +118,7 @@ declare namespace LocalJSX {
     }
     interface BrInput {
         "disabled"?: boolean;
+        "icon"?: string;
         "idInput"?: string;
         "label"?: string;
         "name"?: string;
