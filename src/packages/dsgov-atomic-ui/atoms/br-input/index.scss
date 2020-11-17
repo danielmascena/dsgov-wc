@@ -5,12 +5,19 @@
   & input {
     font-size: 16.8px;
     padding-right: 25px;
+    padding-left: 16px;
     color: #555555;
+    border: solid 1px #888888;
+    border-radius: 6px;
+    
     &::placeholder {
       font-size: 14px;
       font-style: italic;
-      padding-left: 16px;
       padding-right: 40px;
+    }
+
+    &.invalid-input {
+      border: 2px solid #E60000;
     }
   }
   img {

@@ -1,4 +1,4 @@
-import {Component, h, Prop, Host} from '@stencil/core';
+import {Component, h, Prop, State, Event, EventEmitter, Listen, Method, Host} from '@stencil/core';
 
 @Component({
 	tag: 'br-input',
@@ -6,7 +6,7 @@ import {Component, h, Prop, Host} from '@stencil/core';
 	scoped: true
 })
 export class BrInput {
-	@Prop() type?: string;
+	@Prop() type?: string = 'text';
 	@Prop() idInput?: string = 'input';
 	@Prop() name?: string;
 	@Prop() placeholder?: string;
@@ -14,12 +14,38 @@ export class BrInput {
 	@Prop() label?: string;
 	@Prop() icon?: string;
 
+	@State() invalid: boolean;
+
+	@Event({
+	    eventName: "inputInvalid",
+	    cancelable: true,
+	    bubbles: true,
+	}) invalidInput: EventEmitter;
+
+	@Listen("inputInvalid", { capture: true })
+	displayInvalidNotification(event: EventEmitter) {
+		this.invalid = true;
+		console.log('%cInvalid value', 'color: red; font-size:150%', event, this.invalid);
+	}
+
+	@Method() async fireInvalidInput () {
+		this.invalidInput.emit();
+	}
+	@Method() async reset() {
+		this.invalid = false;
+	}
+
 	render() {
 		return (
 			<Host>
 				<label>{this.label}</label>
-				<input placeholder={this.placeholder} disabled={this.disabled} id={this.idInput} />
-				{this.icon && <img src="assets/icons/icon.png" width="20"/>}
+				<input class={this.invalid ? "invalid-input" : ""}
+					type={this.type}
+					placeholder={this.placeholder} 
+					disabled={this.disabled} 
+					id={this.idInput} 
+				/>
+				{this.type === 'password' && <img src="assets/icons/eyes.png" width="20"/>}
 			
 			</Host>
 		);

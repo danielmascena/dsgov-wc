@@ -30,11 +30,13 @@ export namespace Components {
     }
     interface BrInput {
         "disabled"?: boolean;
+        "fireInvalidInput": () => Promise<void>;
         "icon"?: string;
         "idInput"?: string;
         "label"?: string;
         "name"?: string;
         "placeholder"?: string;
+        "reset": () => Promise<void>;
         "type"?: string;
     }
     interface InputTest {
@@ -122,6 +124,7 @@ declare namespace LocalJSX {
         "idInput"?: string;
         "label"?: string;
         "name"?: string;
+        "onInputInvalid"?: (event: CustomEvent<any>) => void;
         "placeholder"?: string;
         "type"?: string;
     }
