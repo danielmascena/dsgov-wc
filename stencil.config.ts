@@ -13,6 +13,9 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
+      copy: [
+        { src: 'images' }
+      ],
       // comment the following line to disable service workers in production
       serviceWorker: null,
       baseUrl: 'https://myapp.local/',

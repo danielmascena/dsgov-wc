@@ -33,6 +33,7 @@ export namespace Components {
         "fireInvalidInput": () => Promise<void>;
         "icon"?: string;
         "idInput"?: string;
+        "isRequired"?: boolean;
         "label"?: string;
         "name"?: string;
         "placeholder"?: string;
@@ -122,6 +123,7 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         "icon"?: string;
         "idInput"?: string;
+        "isRequired"?: boolean;
         "label"?: string;
         "name"?: string;
         "onInputInvalid"?: (event: CustomEvent<any>) => void;

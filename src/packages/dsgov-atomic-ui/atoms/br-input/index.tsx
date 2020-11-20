@@ -1,4 +1,18 @@
-import {Component, h, Prop, State, Event, EventEmitter, Listen, Method, Host} from '@stencil/core';
+import {
+	Component, 
+	h, 
+	Prop, 
+	Element, 
+	State, 
+	Event, 
+	EventEmitter, 
+	Listen, 
+	Method, 
+	Host
+} from '@stencil/core';
+
+const WARNING_ICON = "exclamation-triangle";
+const ERROR_ICON = "times-circle";
 
 @Component({
 	tag: 'br-input',
@@ -6,6 +20,10 @@ import {Component, h, Prop, State, Event, EventEmitter, Listen, Method, Host} fr
 	scoped: true
 })
 export class BrInput {
+
+	brInput!: HTMLInputElement;
+	warnMsg!: HTMLParagraphElement;
+
 	@Prop() type?: string = 'text';
 	@Prop() idInput?: string = 'input';
 	@Prop() name?: string;
@@ -13,8 +31,13 @@ export class BrInput {
 	@Prop() disabled?: boolean;
 	@Prop() label?: string;
 	@Prop() icon?: string;
+	@Prop() isRequired?: boolean;
 
 	@State() invalid: boolean;
+	@State() errorText: string;
+	@State() requiredText: boolean;
+
+	@Element() el: HTMLElement;
 
 	@Event({
 	    eventName: "inputInvalid",
@@ -25,28 +48,68 @@ export class BrInput {
 	@Listen("inputInvalid", { capture: true })
 	displayInvalidNotification(event: EventEmitter) {
 		this.invalid = true;
-		console.log('%cInvalid value', 'color: red; font-size:150%', event, this.invalid);
 	}
 
 	@Method() async fireInvalidInput () {
 		this.invalidInput.emit();
 	}
+
 	@Method() async reset() {
 		this.invalid = false;
 	}
 
+	blurHandler(event: FocusEvent) {
+		const input = (event.target as HTMLInputElement);
+		console.dir(input.validity);
+		if (input.validity.valid) {
+			console.log("%cvalid state", "color: green", event);
+		}
+		if (input.validity.valueMissing) {
+			this.errorText = "Field required";
+			this.requiredText = true;
+			input.classList.add("input-required");
+		} else input.classList.remove("input-required");
+	}
+
+	verifyCapsLock(event: KeyboardEvent) {
+		if (event.getModifierState("CapsLock")) {
+			(event.target as HTMLInputElement).classList?.add("show-warning");
+		} else {
+			(event.target as HTMLInputElement).classList?.remove("show-warning");
+		}
+	}
+
 	render() {
 		return (
-			<Host>
-				<label>{this.label}</label>
-				<input class={this.invalid ? "invalid-input" : ""}
+			<Host class={
+				{
+				"invalid-state": this.invalid
+				}
+			}>
+				<label class="input__label">{this.label}</label>
+				<input
 					type={this.type}
-					placeholder={this.placeholder} 
+					placeholder={this.placeholder}
+					required={this.isRequired}
 					disabled={this.disabled} 
-					id={this.idInput} 
+					id={this.idInput}
+					onBlur={this.blurHandler}
+					onKeyUp={this.verifyCapsLock}
+					ref={(el) => this.brInput = el as HTMLInputElement}
 				/>
-				{this.type === 'password' && <img src="assets/icons/eyes.png" width="20"/>}
-			
+				{this.type === 'password' && <img class="input__append-icon" src="/images/exclamation-triangle.svg" width="20"/>}
+				
+				<p class="error-message" hidden>
+					<img src={`/images/${ERROR_ICON}.svg`} />
+					&nbsp;{this.errorText} Informe um valor
+					{this.requiredText && <span style={{color: 'red'}}>Informe um valor</span>}
+				</p>
+				<p ref={(el) => this.warnMsg = el as HTMLParagraphElement}
+					class="warning-message" 
+					hidden>
+					<img src={`/images/${WARNING_ICON}.svg`} />
+					&nbsp;O Caps Lock esta&#769; ligado!
+				</p>
 			</Host>
 		);
 	}

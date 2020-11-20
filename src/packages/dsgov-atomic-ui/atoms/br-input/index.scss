@@ -1,6 +1,19 @@
+/*
+:host() {
+  --color: black;
+}
+:host(.invalid-state) {
+  --color: #E60000;
+}*/
 :host {
   display: inline-grid;
   position: relative;
+
+  &.invalid-state {
+    input {
+      border: 2px solid #E60000;
+    }
+  }
 
   & input {
     font-size: 16.8px;
@@ -16,14 +29,43 @@
       padding-right: 40px;
     }
 
-    &.invalid-input {
-      border: 2px solid #E60000;
+    &.show-warning {
+      & ~ .warning-message {
+        display: block;
+      }
     }
+    &.input-required {
+      & ~ .error-message {
+        display: block;
+      }
+    }
+
   }
-  img {
+  .input__append-icon {
     position: absolute;
-    right: 3px;
-    bottom: 3px;
+    right: 5px;
+    top: 20px;
   }
   
+  .warning-message {
+    background: #FFCD07 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    top: 50px;
+    margin: 0;
+
+    img {
+      vertical-align: middle;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 8px;
+      border: 5px solid transparent;
+      border-bottom-color: #FFCD07;
+    }
+  }
 }
