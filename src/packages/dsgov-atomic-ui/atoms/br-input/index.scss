@@ -8,11 +8,16 @@
 :host {
   display: inline-grid;
   position: relative;
+  margin-top: 32px;
 
   &.invalid-state {
     input {
       border: 2px solid #E60000;
     }
+  }
+
+  .input-label {
+    margin-bottom: 4px;
   }
 
   & input {
@@ -35,6 +40,7 @@
       }
     }
     &.input-required {
+      border: 2px solid #E60000;
       & ~ .error-message {
         display: block;
       }
@@ -44,16 +50,23 @@
   .input__append-icon {
     position: absolute;
     right: 5px;
-    top: 20px;
+    top: 25px;
   }
-  
+  .error-message {
+    margin: 8px 0;
+  }
+
   .warning-message {
     background: #FFCD07 0% 0% no-repeat padding-box;
     border-radius: 4px;
     padding: 5px;
     position: absolute;
-    top: 50px;
+    top: 53px;
+    right: 0;
     margin: 0;
+    text-align: left;
+    font: italic normal 12px/18px Rawline;
+    letter-spacing: 0px;
 
     img {
       vertical-align: middle;

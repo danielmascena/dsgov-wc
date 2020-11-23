@@ -63,10 +63,13 @@ export class BrInput {
 		console.dir(input.validity);
 		if (input.validity.valid) {
 			console.log("%cvalid state", "color: green", event);
+			this.invalid = false;
 		}
 		if (input.validity.valueMissing) {
 			this.errorText = "Field required";
 			this.requiredText = true;
+			this.invalid = true;
+			console.log(this.invalid);
 			input.classList.add("input-required");
 		} else input.classList.remove("input-required");
 	}
@@ -86,7 +89,7 @@ export class BrInput {
 				"invalid-state": this.invalid
 				}
 			}>
-				<label class="input__label">{this.label}</label>
+				<label class="input-label">{this.label}</label>
 				<input
 					type={this.type}
 					placeholder={this.placeholder}
@@ -104,6 +107,7 @@ export class BrInput {
 					&nbsp;{this.errorText} Informe um valor
 					{this.requiredText && <span style={{color: 'red'}}>Informe um valor</span>}
 				</p>
+				
 				<p ref={(el) => this.warnMsg = el as HTMLParagraphElement}
 					class="warning-message" 
 					hidden>
