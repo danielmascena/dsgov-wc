@@ -75,11 +75,22 @@ export class BrInput {
 		} else input.classList.remove("input-required");
 	}
 
-	verifyCapsLock(event: KeyboardEvent) {
+	keyPressHandler(event: KeyboardEvent) {
+		const input = (event.target as HTMLInputElement);
+		/*
+		if (input.validity.valid && input.classList.contains("input-required")) {
+			input.classList.remove("input-required");
+		}*/
+	}
+
+	verifyCapsLockOn(event: KeyboardEvent) {
 		if (event.getModifierState("CapsLock")) {
-			(event.target as HTMLInputElement).classList?.add("show-warning");
-		} else {
-			(event.target as HTMLInputElement).classList?.remove("show-warning");
+			(event.target as HTMLInputElement).classList.add("show-warning");
+		}
+	}
+	verifyCapsLockOff(event: KeyboardEvent) {
+		if (!event.getModifierState("CapsLock")) {
+			(event.target as HTMLInputElement).classList.remove("show-warning");
 		}
 	}
 
@@ -98,7 +109,9 @@ export class BrInput {
 					disabled={this.disabled} 
 					id={this.idInput}
 					onBlur={this.blurHandler}
-					onKeyUp={this.verifyCapsLock}
+					onKeyDown={this.verifyCapsLockOn}
+					onKeyUp={this.verifyCapsLockOff}
+					onKeyPress={this.keyPressHandler}
 					ref={(el) => this.brInput = el as HTMLInputElement}
 				/>
 				{this.type === 'password' && <img class="input__append-icon" src="/images/exclamation-triangle.svg" width="20"/>}

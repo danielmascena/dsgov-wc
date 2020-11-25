@@ -39,7 +39,7 @@
         display: block;
       }
     }
-    &.input-required {
+    &.input-required:invalid {
       border-color: #E60000;
       & ~ .feedback-message {
         display: block;
@@ -49,16 +49,20 @@
     &:required {
 
     }
-    &:invalid {
-    
-    }
+   
     &:valid {
       border-color: #168821;
       & ~ .feedback-message {
-        display: block;
-        --color: #168821;
+        display: none;
       }
     }
+    &:not(:focus):valid {
+      & ~ .feedback-message {
+        display: block;
+        --color: 168821;
+      }
+    }
+
     &:disabled {
 
     }
