@@ -40,20 +40,41 @@
       }
     }
     &.input-required {
-      border: 2px solid #E60000;
-      & ~ .error-message {
+      border-color: #E60000;
+      & ~ .feedback-message {
         display: block;
+        --color: #E60000;
       }
     }
+    &:required {
 
+    }
+    &:invalid {
+    
+    }
+    &:valid {
+      border-color: #168821;
+      & ~ .feedback-message {
+        display: block;
+        --color: #168821;
+      }
+    }
+    &:disabled {
+
+    }
+    &[type="checkbox"]:checked {
+
+    }
   }
   .input__append-icon {
     position: absolute;
     right: 5px;
     top: 25px;
   }
-  .error-message {
+  .feedback-message {
     margin: 8px 0;
+    border: 2px solid transparent;
+    color: var(--color);
   }
 
   .warning-message {

@@ -34,7 +34,7 @@ export class BrInput {
 	@Prop() isRequired?: boolean;
 
 	@State() invalid: boolean;
-	@State() errorText: string;
+	@State() feedbackText: string;
 	@State() requiredText: boolean;
 
 	@Element() el: HTMLElement;
@@ -64,9 +64,10 @@ export class BrInput {
 		if (input.validity.valid) {
 			console.log("%cvalid state", "color: green", event);
 			this.invalid = false;
+			this.feedbackText = "Campo correto";
 		}
 		if (input.validity.valueMissing) {
-			this.errorText = "Field required";
+			this.feedbackText = "Field required";
 			this.requiredText = true;
 			this.invalid = true;
 			console.log(this.invalid);
@@ -102,9 +103,9 @@ export class BrInput {
 				/>
 				{this.type === 'password' && <img class="input__append-icon" src="/images/exclamation-triangle.svg" width="20"/>}
 				
-				<p class="error-message" hidden>
+				<p class="feedback-message" hidden>
 					<img src={`/images/${ERROR_ICON}.svg`} />
-					&nbsp;{this.errorText} Informe um valor
+					&nbsp;{this.feedbackText} Informe um valor
 					{this.requiredText && <span style={{color: 'red'}}>Informe um valor</span>}
 				</p>
 				
