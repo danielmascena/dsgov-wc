@@ -21,8 +21,8 @@ const ERROR_ICON = "times-circle";
 })
 export class BrInput {
 
-	brInput!: HTMLInputElement;
-	warnMsg!: HTMLParagraphElement;
+	brInput: HTMLInputElement;
+	warnMsg: HTMLParagraphElement;
 
 	@Prop() type?: string = 'text';
 	@Prop() idInput?: string = 'input';
@@ -60,7 +60,7 @@ export class BrInput {
 
 	blurHandler(event: FocusEvent) {
 		const input = (event.target as HTMLInputElement);
-		console.dir(input.validity);
+		console.log(input.validity, `element ${this.el}`);
 		if (input.validity.valid) {
 			console.log("%cvalid state", "color: green", event);
 			this.invalid = false;
@@ -101,7 +101,7 @@ export class BrInput {
 				"invalid-state": this.invalid
 				}
 			}>
-				<label class="input-label">{this.label}</label>
+				<label htmlFor={this.idInput} class="input-label">{this.label}</label>
 				<input
 					type={this.type}
 					placeholder={this.placeholder}
